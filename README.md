@@ -1,17 +1,29 @@
-# tape-sane
+# tape-plus
 
 > Nested tape tests with before/after, async, and promise support
 
-tape-sane is a wrapper for [tape][] for a batteries-included experience for writing elegant tape tests. It supports:
+tape-plus is a wrapper for [tape][] for a batteries-included experience for writing elegant tape tests. It provides a mocha-like API.
 
 [tape]: https://npmjs.com/package/tape
 
-## Nested tests
+## Usage
+
+Use `require('tape-plus')` as a substitute for `require('tape')`. The only difference is you don't need to use `t.end()` anymore.
+
+```js
+var test = require('tape-plus')
+
+test('adding numbers', t => {
+  t.equal(10, 10)
+})
+```
+
+### Grouped tests
 
 Use `test.group` to define test groups.
 
 ```js
-var group = require('tape-sane').group
+var group = require('tape-plus').group
 
 group('add()', test => {
   test('adding', t => {
@@ -24,11 +36,33 @@ group('add()', test => {
 })
 ```
 
-## Before/after hooks
+### Nested groups
+
+You can also make groups within groups. Just call `test.group` again.
+
+```js
+var group = require('tape-plus').group
+
+group('add()', test => {
+  test.group('adding', test => {
+    test('positive numbers', t => {
+      t.equal(add(10, 10), 20)
+    })
+
+    test('negative numbers', t => {
+      t.equal(add(-10, -10), -20)
+    })
+  })
+})
+```
+
+### Before/after hooks
 
 Use `test.beforeEach` and `test.afterEach` to add hooks.
 
 ```js
+var group = require('tape-plus').group
+
 group('add()', test => {
   var base
 
@@ -37,6 +71,7 @@ group('add()', test => {
   })
 
   test.afterEach(t => {
+    // ...
   })
 
   test('adds numbers', t => {
@@ -49,11 +84,13 @@ group('add()', test => {
 })
 ```
 
-## Asynchronous tests
+### Asynchronous tests
 
 Pass a second parameter to `test()` and it'll be a callback, Mocha-style.
 
 ```js
+var group = require('tape-plus').group
+
 group('add()', test => {
   var base
 
@@ -66,11 +103,13 @@ group('add()', test => {
 })
 ```
 
-## Promises
+### Promises
 
 Return a promise from inside a `test()` block. Rejected promises will be an error.
 
 ```js
+var group = require('tape-plus').group
+
 test('async callback', t => {
   return fetch('http://site.com')
   .then(data => {
@@ -79,17 +118,12 @@ test('async callback', t => {
 })
 ```
 
-
-## BDD interface
+### BDD interface
 
 `test.describe` is an alias for `test.group`.
 
-<details>
-<summary>Example</summary>
-
-
 ```js
-var describe = require('tape-sane').describe
+var describe = require('tape-plus').describe
 
 describe('add()', it => {
   it('adds numbers', t => {
@@ -101,5 +135,26 @@ describe('add()', it => {
   })
 })
 ```
-</details>
 
+### With other tape wrappers
+
+tape-plus is implemented as a decorator, so you can mix it in with other stuff. Here's an example with [extend-tape](https://www.npmjs.com/package/extend-tape).
+
+```js
+var test = require('tape')
+
+test = require('extend-tape')(tape, { /*...*/ })
+test = require('tape-plus/wrap')(tape)
+```
+
+## Thanks
+
+**tape-plus** © 2016+, Rico Sta. Cruz. Released under the [MIT] License.<br>
+Authored and maintained by Rico Sta. Cruz with help from contributors ([list][contributors]).
+
+> [ricostacruz.com](http://ricostacruz.com) &nbsp;&middot;&nbsp;
+> GitHub [@rstacruz](https://github.com/rstacruz) &nbsp;&middot;&nbsp;
+> Twitter [@rstacruz](https://twitter.com/rstacruz)
+
+[MIT]: http://mit-license.org/
+[contributors]: http://github.com/rstacruz/tape-plus/contributors

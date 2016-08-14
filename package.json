@@ -1,5 +1,5 @@
 {
-  "name": "tape-sane",
+  "name": "tape-plus",
   "version": "1.0.0",
   "description": "Nested tape tests with before/after, async, and promise support",
   "main": "index.js",
