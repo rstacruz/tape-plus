@@ -24,7 +24,7 @@ describe('promise', function (it) {
   })
 })
 
-describe('before and after', function (it) {
+describe('beforeEach', function (it) {
   var n = 0
 
   it.beforeEach(function (t) {
@@ -47,5 +47,34 @@ describe('before and after', function (it) {
 
   it('four', function (t) {
     t.equal(n, 4)
+  })
+})
+
+describe('afterEach', function (it) {
+  var n = 0
+
+  it.beforeEach(function (t) {
+    n++
+  })
+
+  it.afterEach(function (t) {
+    n--
+  })
+
+  it('one', function (t) {
+    t.equal(n, 1)
+  })
+
+  it('also one', function (t) {
+    t.equal(n, 1)
+  })
+
+  it('now two', function (t) {
+    n++
+    t.equal(n, 2)
+  })
+
+  it('still two', function (t) {
+    t.equal(n, 2)
   })
 })
