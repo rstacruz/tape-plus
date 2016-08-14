@@ -1,5 +1,5 @@
 var tape = require('tape')
-var test = require('./wrap')(tape)
+var test = require('../wrap')(tape)
 var describe = test.describe
 
 describe('nesting', function (it) {
@@ -48,6 +48,46 @@ describe('beforeEach', function (it) {
 
   it('four', function (t) {
     t.equal(n, 4)
+  })
+})
+
+describe('beforeEach async', function (it) {
+  var n = 0
+
+  it.beforeEach(function (t, next) {
+    setTimeout(function () {
+      n++
+      next()
+    })
+  })
+
+  it('one', function (t) {
+    t.equal(n, 1)
+  })
+
+  it('two', function (t) {
+    t.equal(n, 2)
+  })
+})
+
+describe('beforeEach promise', function (it) {
+  var n = 0
+
+  it.beforeEach(function (t) {
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        n++
+        resolve()
+      })
+    })
+  })
+
+  it('one', function (t) {
+    t.equal(n, 1)
+  })
+
+  it('two', function (t) {
+    t.equal(n, 2)
   })
 })
 

@@ -1,10 +1,10 @@
 {
   "name": "tape-sane",
   "version": "1.0.0",
-  "description": "``` test('simple', t => {   t.equal(1, 1) })",
+  "description": "Nested tape tests with before/after, async, and promise support",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "tape test/*.js"
   },
   "keywords": [],
   "author": "Rico Sta. Cruz <rico@ricostacruz.com> (http://ricostacruz.com)",
