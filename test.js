@@ -122,3 +122,9 @@ describe('beforeEach and afterEach', function (it) {
     t.equal(n, 2)
   })
 })
+
+describe('skip', function (it) {
+  it.skip('sup', function (t) {
+    t.equal(1, 2)
+  })
+})
