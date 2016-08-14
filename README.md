@@ -155,7 +155,7 @@ tape-plus is implemented as a decorator, so you can mix it in with other stuff. 
 ```js
 var test = require('tape')
 
-test = require('extend-tape')(tape, { /*...*/ })
+test = require('extend-tape').default(tape, { /*...*/ })
 test = require('tape-plus/wrap')(tape)
 ```
 
