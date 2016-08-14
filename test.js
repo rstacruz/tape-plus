@@ -1,5 +1,6 @@
 var tape = require('tape')
-var describe = require('./wrap')(tape).group
+var test = require('./wrap')(tape)
+var describe = test.describe
 
 describe('nesting', function (it) {
   it('1 level', function (t) {
@@ -50,7 +51,50 @@ describe('beforeEach', function (it) {
   })
 })
 
+describe('beforeEach async', function (it) {
+  var n = 0
+
+  it.beforeEach(function (t) {
+    n++
+  })
+
+  it('one', function (t, end) {
+    t.equal(n, 1)
+    end()
+  })
+})
+
 describe('afterEach', function (it) {
+  var n = 0
+
+  it.afterEach(function (t) {
+    n++
+  })
+
+  it('zero', function (t) {
+    t.equal(n, 0)
+  })
+
+  it('one', function (t) {
+    t.equal(n, 1)
+  })
+
+  it('two', function (t) {
+    t.equal(n, 2)
+  })
+
+  it.describe('nested', function (it) {
+    it('three', function (t) {
+      t.equal(n, 3)
+    })
+  })
+
+  it('four', function (t) {
+    t.equal(n, 4)
+  })
+})
+
+describe('beforeEach and afterEach', function (it) {
   var n = 0
 
   it.beforeEach(function (t) {
