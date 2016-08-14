@@ -6,6 +6,14 @@ tape-plus is a wrapper for [tape][] for a batteries-included experience for writ
 
 [tape]: https://npmjs.com/package/tape
 
+## Install
+
+[tape][] is a peer dependency of tape-plus. Install them together.
+
+```sh
+npm install --save-dev tape tape-plus
+```
+
 ## Usage
 
 Use `require('tape-plus')` as a substitute for `require('tape')`. The only difference is you don't need to use `t.end()` anymore.
