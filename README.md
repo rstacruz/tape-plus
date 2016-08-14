@@ -2,7 +2,7 @@
 
 > Nested tape tests with before/after, async, and promise support
 
-tape-plus is a wrapper for [tape][] for a batteries-included experience for writing elegant tape tests. It provides a user-friendly API modelled after Mocha.
+tape-plus is a wrapper for [tape][] for a batteries-included experience for writing elegant tape tests. It provides a user-friendly API modeled after Mocha.
 
 [tape]: https://npmjs.com/package/tape
 
